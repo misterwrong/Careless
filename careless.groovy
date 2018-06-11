@@ -32,15 +32,16 @@ import groovy.transform.Canonical
 @Slf4j
 class Process {
 
-    def ttrss    = "http://localhost/tt-rss/";
-    def user     = ""
-    def pass     = ""
-    def feed     = ""
+    def trans    = "philae"                         // The name of the host of Transmission
+    def ttrss    = "http://localhost/tt-rss/";      // The full URL to Tiny Tiny RSS
+    def user     = ""                               // Your Tiny Tiny RSS user name
+    def pass     = ""                               // Your Tiny Tiny RSS password
+    def feed     = ""                               // The feed id (numeric)
     
-    def tv       = ""
-    def allowed  = ['mkv', 'mp4', 'mpg', 'avi']
-    def nrs      = "[Ss]?[0-9]{1,2}[EeXx][0-9]{1,2}"
+    def tv       = ""                               // The directory where the articles are stored
+    def allowed  = ['mkv', 'mp4', 'mpg', 'avi']     // The allowed file name extensions
     
+    def nrs      = "[Ss]?[0-9]{1,2}[EeXx][0-9]{1,2}"    
     def sid = null
 
     public String login () {
@@ -112,7 +113,7 @@ class Process {
         articles.each { it ->
             log.debug "sending link: ($it.id) $it.link"
             try {
-                log.error (['transmission-remote', '--add', it.link].execute().text)
+                log.error (['transmission-remote', $trans, '--add', it.link].execute().text)
             } catch (IOException e) {
                 log.error (e.getMessage());
             }
