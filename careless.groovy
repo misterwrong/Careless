@@ -33,15 +33,15 @@ import groovy.transform.Canonical
 class Process {
 
     def trans    = "philae"                         // The name of the host of Transmission
-    def ttrss    = "http://localhost/tt-rss/";      // The full URL to Tiny Tiny RSS
+    def ttrss    = "http://localhost/tt-rss/api/";  // The full URL to Tiny Tiny RSS, ending with /api/
     def user     = ""                               // Your Tiny Tiny RSS user name
     def pass     = ""                               // Your Tiny Tiny RSS password
     def feed     = ""                               // The feed id (numeric)
     
     def tv       = ""                               // The directory where the articles are stored
     def allowed  = ['mkv', 'mp4', 'mpg', 'avi']     // The allowed file name extensions
+    def nrs      = "[Ss]?[0-9]{1,2}[EeXx][0-9]{1,2}"// The regex that determines the season and
     
-    def nrs      = "[Ss]?[0-9]{1,2}[EeXx][0-9]{1,2}"    
     def sid = null
 
     public String login () {
@@ -113,7 +113,7 @@ class Process {
         articles.each { it ->
             log.debug "sending link: ($it.id) $it.link"
             try {
-                log.error (['transmission-remote', $trans, '--add', it.link].execute().text)
+                log.error (['transmission-remote', trans, '--add', it.link].execute().text)
             } catch (IOException e) {
                 log.error (e.getMessage());
             }
