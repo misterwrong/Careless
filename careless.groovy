@@ -32,7 +32,7 @@ import groovy.transform.Canonical
 @Slf4j
 class Process {
 
-    def url      = "http://localhost/tt-rss/";
+    def ttrss    = "http://localhost/tt-rss/";
     def user     = ""
     def pass     = ""
     def feed     = ""
@@ -133,7 +133,7 @@ class Process {
     }
     
     private Object doPost(String msg) {
-        def post = new URL(url).openConnection();
+        def post = new URL(ttrss).openConnection();
         post.setRequestMethod("POST")
         post.setDoOutput(true)
         post.setRequestProperty("Content-Type", "application/json")
