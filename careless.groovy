@@ -97,14 +97,17 @@ class Process {
         return articles
     }
         
-    private Article getArticle(Map heading) {        
+    private Article getArticle(Map heading) {
         def link = heading.link
-        def article = link.find(nrs)
         def s = link.indexOf("&dn=") + 4
-        def e = link.indexOf(article)        
+        def rest = link.substring(s, link.length()-1)
+        def article = rest.find(nrs)                
+        def e = s + rest.indexOf(article)
+        def title = (heading.link.substring(s, e) + "- " + article).replaceAll("\\+", " ")
+        log.debug ("title = $title (from $s to $e)")
         [
             id: heading.id,
-            title: (heading.link.substring(s, e) + "- " + article).replaceAll("\\+", " "),
+            title: title,
             link: heading.link
         ] as Article
     }
