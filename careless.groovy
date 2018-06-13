@@ -32,17 +32,32 @@ import groovy.transform.Canonical
 @Slf4j
 class Careless {
 
-    def trans    = "philae"                         // The name of the host of Transmission
-    def ttrss    = "http://localhost/tt-rss/api/";  // The full URL to Tiny Tiny RSS, ending with /api/
-    def user     = ""                               // Your Tiny Tiny RSS user name
-    def pass     = ""                               // Your Tiny Tiny RSS password
-    def feed     = ""                               // The feed id (numeric)
+    def trans = ""
+    def ttrss = ""
+    def user = ""
+    def pass = ""
+    def feed = ""
     
-    def tv       = ""                               // The directory where the articles are stored
-    def allowed  = ['mkv', 'mp4', 'mpg', 'avi']     // The allowed file name extensions
-    def nrs      = "[Ss]?[0-9]{1,2}[EeXx][0-9]{1,2}"// The regex that determines the season and
+    def tv = ""
+    def allowed = []
+    def nrs = ""
     
     def sid = null
+    
+    public Careless(String configFile) {
+    
+        def conf = new ConfigSlurper().parse(new File(configFile).toURL())
+    
+        trans = conf.trans
+        ttrss = conf.ttrss
+        user = conf.user
+        pass = conf.pass
+        feed = conf.feed
+        
+        tv = conf.tv
+        allowed = conf.allowed
+        nrs = conf.nrs
+    }
 
     public String login () {
           def message = """{
@@ -168,7 +183,7 @@ public class Article {
     }
 }
 
-def process = new Careless()
+def process = new Careless(args[0])
 def sid = process.login()
 def entries = process.getArticles(sid)
 process.transmit(sid, entries);
