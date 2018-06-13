@@ -30,7 +30,7 @@ import groovy.transform.Canonical
 ])
 
 @Slf4j
-class Process {
+class Careless {
 
     def trans    = "philae"                         // The name of the host of Transmission
     def ttrss    = "http://localhost/tt-rss/api/";  // The full URL to Tiny Tiny RSS, ending with /api/
@@ -168,7 +168,7 @@ public class Article {
     }
 }
 
-def process = new Process()
+def process = new Careless()
 def sid = process.login()
 def entries = process.getArticles(sid)
 process.transmit(sid, entries);
