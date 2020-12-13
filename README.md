@@ -12,7 +12,7 @@ Rename and change the file named `example.conf` and configure which directories,
     pass     Your user's password on Tiny Tiny RSS
     feed     The number of the feed that contains the links
         
-    tv       The directory under which the downloaded files are stored
+    dir      The directory under which the downloaded files are stored
     allowed  a list of allowed file types
     nrs      a regex matching with how the original filenames state their series and number.
     

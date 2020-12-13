@@ -38,7 +38,7 @@ class Careless {
     def pass = ""
     def feed = ""
     
-    def tv = ""
+    def dir = ""
     def allowed = []
     def nrs = ""
     
@@ -54,7 +54,7 @@ class Careless {
         pass = conf.pass
         feed = conf.feed
         
-        tv = conf.tv
+        dir = conf.dir
         allowed = conf.allowed
         nrs = conf.nrs
     }
@@ -89,7 +89,7 @@ class Careless {
         def articles = []
         def existing = []
         
-        new File(tv).eachFileRecurse(FILES) { file ->
+        new File(dir).eachFileRecurse(FILES) { file ->
             if (allowed.contains(file.name.substring(file.name.lastIndexOf('.') + 1))) {
                 existing << file.name.substring(0, file.name.length() - 4).replaceAll("\'", "").toLowerCase()
             }
